@@ -23,7 +23,7 @@ class DiscussionFixtures extends Fixture
             $discussion = new Discussion();
             $discussion->setCreatedAt(new \DateTime());
             $discussion->setTitle("titre de la discussion n°$i");
-            $discussion->setContent("<div>Ceci est le conte,u de la discussion numero $i</div>");
+            $discussion->setContent("<div>Ceci est le contenu de la discussion numero $i</div>");
             $discussion->setTheme($theme);
             $manager->persist($discussion);
 
