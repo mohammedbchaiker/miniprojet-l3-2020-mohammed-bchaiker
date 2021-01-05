@@ -37,6 +37,11 @@ class Discussion
      */
     private $theme;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="discussions")
+     */
+    private $user;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -86,6 +91,18 @@ class Discussion
     public function setTheme(?Theme $theme): self
     {
         $this->theme = $theme;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

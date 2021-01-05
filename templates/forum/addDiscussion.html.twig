@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+{% form_theme view 'bootstrap_4_layout.html.twig' %}
+{% block body %}
+    <h2>Pour ajouter une discussion remplisser les champs suivants :</h2>
+    {{ form_start(view) }}
+    {{ form_widget(view) }}
+    <button type="submit" class="btn btn-success">Ajouter une discussion</button>
+
+
+
+    {{ form_end(view) }}
+{% endblock %}

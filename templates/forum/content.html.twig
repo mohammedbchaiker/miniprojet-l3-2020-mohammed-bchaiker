@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <h1>Bienvenue dans le theme {{ theme.title }}</h1>
+    <span>Ce theme contient {{ val }} discussions</span>
     {% for discussion in theme.discussions %}
         <h6>{{ discussion.title}}</h6>
         <span>Ecrit le {{ discussion.createdAt | date}}</span>

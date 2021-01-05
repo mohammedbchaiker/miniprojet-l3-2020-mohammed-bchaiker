@@ -10,13 +10,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c8e9114a-d796-4335-bc5f-57ed7e800625" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/templates/forum/content.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/ForumController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ForumController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataFixtures/DiscussionFixtures.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/DiscussionFixtures.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
-    </list>
+    <list default="true" id="c8e9114a-d796-4335-bc5f-57ed7e800625" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -138,6 +132,7 @@
     </include_path>
   </component>
   <component name="ProjectId" id="1m3lKEJ5ASKfX8bCC8mzoFraSVc" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -177,6 +172,7 @@
       <workItem from="1608925852328" duration="2093000" />
       <workItem from="1609011361347" duration="1852000" />
       <workItem from="1609070033249" duration="5789000" />
+      <workItem from="1609847144781" duration="1326000" />
     </task>
     <servers />
   </component>
@@ -193,5 +189,12 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="791" y="475" width="399" height="164" key="NewPhpFileDialog" timestamp="1609848466386">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state x="791" y="475" width="399" height="164" key="NewPhpFileDialog/72.27.1848.1053@72.27.1848.1053" timestamp="1609848466386" />
   </component>
 </project>

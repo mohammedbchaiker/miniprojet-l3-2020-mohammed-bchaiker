@@ -2,8 +2,13 @@
 
 {% block body %}
     {% for theme in themes %}
-        <h6>{{ theme.title }}</h6>
-        <span>Ecrit le {{ theme.createdAt | date}}</span>
-        <div class="container p-3 my-3 bg-dark text-white">{{ theme.content | raw}}</div> <a href="{{ path('theme_discussion',{'id':theme.id}) }}" class="btn btn-primary">lire la suite</a>
+        <div class="card">
+            <h6>{{ theme.title }}</h6>
+            <span>Ecrit le {{ theme.createdAt | date}}</span>
+            <div class="container p-3 my-3 bg-dark text-white card-body"><span class="">Description :</span><br>
+                <p>{{ theme.content | raw}}</p>
+            </div>
+            <a href="{{ path('theme_discussion',{'id':theme.id}) }}" class="btn btn-primary">Voir les discussions de ce theme</a>
+        </div>
     {% endfor %}
 {% endblock %}

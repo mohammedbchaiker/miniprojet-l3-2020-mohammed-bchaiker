@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Discussion;
 use App\Entity\Theme;
+use App\Form\DiscussionType;
+use App\Form\ThemeType;
 use App\Repository\DiscussionRepository;
 use App\Repository\ThemeRepository;
 use Doctrine\Persistence\ObjectManager;
@@ -59,18 +61,55 @@ class ForumController extends AbstractController
      * @return Response
      */
     public function show_discussions(Theme $theme){
-        return $this->render('forum/content.html.twig',['theme'=>$theme]);
+        $val = $theme->getDiscussions()->count();
+        return $this->render('forum/content.html.twig',['theme'=>$theme,'val'=>$val]);
     }
 
 
     /**
      * @Route ("/creatediscussion", name="create_discussion")
      * @param Request $request
+     * @param ObjectManager $manager
+     * @return Response
      */
 
 
     public function create_discussion(Request $request, ObjectManager $manager){
+       $discussion = new Discussion();
+       $form = $this->createForm(DiscussionType::class,$discussion);
+       $view = $form->createView();
 
+       $form->handleRequest($request);
+       if ($form->isSubmitted() && $form->isValid()){
+           $discussion->setCreatedAt(new \DateTime());
+           $manager->persist($discussion);
+           $manager->flush();
+
+           return $this->redirectToRoute('show_forum',['id'=>$discussion->getId()]);
+
+       }
+       return $this->render('forum/addDiscussion.html.twig',['view'=>$view]);
     }
+
+    /**
+     * @Route ("/create_theme", name="create_theme")
+    */
+
+
+    public function create_theme(Request $request, ObjectManager $manager){
+        $theme = new Theme();
+        $form=$this->createForm(ThemeType::class,$theme);
+        $view=$form->createView();
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()){
+            $theme->setCreatedAt(new \DateTime());
+            $manager->persist($theme);
+            $manager->flush();
+            return $this->redirectToRoute('theme_discussion',['id'=>$theme->getId()]);
+        }
+        return $this->render('forum/addTheme.html.twig',['view'=>$view]);
+
+}
+
 
 }
