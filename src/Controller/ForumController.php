@@ -9,6 +9,7 @@ use App\Form\ThemeType;
 use App\Repository\DiscussionRepository;
 use App\Repository\ThemeRepository;
 use Doctrine\Persistence\ObjectManager;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -42,16 +43,16 @@ class ForumController extends AbstractController
     }
 
 
-
-
     /**
      * @Route ("/", name="welcome")
      * @param ThemeRepository $themeRepository
+     * @param Request $request
      * @return Response
      */
-    public function welcome(ThemeRepository $themeRepository){
-        $themes = $themeRepository->findAll();
-        return $this->render('forum/welcome.html.twig',['themes'=>$themes]);
+    public function welcome(ThemeRepository $themeRepository, Request $request){
+        $themes = $themeRepository->pagination((int)$request->query->get("page",1),5);
+        return $this->render('forum/welcome.html.twig',['themes'=>$themes,
+            'nbOfthemes'=>$themeRepository->countTheme()]);
     }
 
 
@@ -62,6 +63,7 @@ class ForumController extends AbstractController
      */
     public function show_discussions(Theme $theme){
         $val = $theme->getDiscussions()->count();
+
         return $this->render('forum/content.html.twig',['theme'=>$theme,'val'=>$val]);
     }
 
@@ -79,7 +81,9 @@ class ForumController extends AbstractController
        $form = $this->createForm(DiscussionType::class,$discussion);
        $view = $form->createView();
 
+
        $form->handleRequest($request);
+
        if ($form->isSubmitted() && $form->isValid()){
            $discussion->setCreatedAt(new \DateTime());
            $manager->persist($discussion);
@@ -101,11 +105,22 @@ class ForumController extends AbstractController
         $form=$this->createForm(ThemeType::class,$theme);
         $view=$form->createView();
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()){
-            $theme->setCreatedAt(new \DateTime());
-            $manager->persist($theme);
-            $manager->flush();
-            return $this->redirectToRoute('theme_discussion',['id'=>$theme->getId()]);
+
+        if ($form->isSubmitted()){
+            $captcha=$_POST["g-recaptcha-response"];
+            $secretkey="6LeugSUaAAAAAP4qTVHWDSyN32s51zmczs7gHX2I";
+            $url="https://www.google.com/recaptcha/api/siteverify?secret=".urlencode($secretkey)."&response=".urlencode($captcha)." ";
+            $response=file_get_contents($url);
+            $responsekey=  json_decode($response,TRUE);
+            if ($responsekey['success'] && $form->isValid()){
+                $theme->setCreatedAt(new \DateTime());
+                $manager->persist($theme);
+                $manager->flush();
+                return $this->redirectToRoute('theme_discussion',['id'=>$theme->getId()]);
+            }
+
+
+
         }
         return $this->render('forum/addTheme.html.twig',['view'=>$view]);
 

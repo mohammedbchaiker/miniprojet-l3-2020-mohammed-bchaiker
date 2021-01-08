@@ -18,7 +18,22 @@ class DiscussionRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Discussion::class);
     }
+    public function pagination(int $page, int $nbOfPages){
+        $query = $this->createQueryBuilder("t")
+            ->orderBy("t.createdAt", "DESC")
+            ->setFirstResult($page * $nbOfPages - $nbOfPages )
+            ->setMaxResults($nbOfPages);
 
+        return $query->getQuery()->getResult();
+    }
+
+    public function countTheme()
+    {
+        return $this->createQueryBuilder("t")
+            ->select("COUNT(t.id) ")
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
     // /**
     //  * @return Discussion[] Returns an array of Discussion objects
     //  */

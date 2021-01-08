@@ -11,4 +11,7 @@
             <a href="{{ path('theme_discussion',{'id':theme.id}) }}" class="btn btn-primary">Voir les discussions de ce theme</a>
         </div>
     {% endfor %}
+    {% for i in 1..((nbOfthemes/5)|round(0,'ceil')) %}
+        <li><a href="{{ path('welcome',{page:i})}}">{{ i }}</a></li>
+    {% endfor %}
 {% endblock %}

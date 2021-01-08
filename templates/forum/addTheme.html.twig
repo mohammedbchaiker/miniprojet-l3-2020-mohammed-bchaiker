@@ -1,12 +1,20 @@
+
 {% extends 'base.html.twig' %}
 {% form_theme view 'bootstrap_4_layout.html.twig' %}
 {% block body %}
     <h2>Pour ajouter un theme remplisser les champs suivants :</h2>
     {{ form_start(view) }}
     {{ form_widget(view) }}
-    <button type="submit" class="btn btn-success">Ajouter un theme</button>
+    <div class="g-recaptcha" data-sitekey="6LeugSUaAAAAADij0MMHUpZy-pJQyCVm1YRqURn0"></div>
+    <br/>
+    <button type="submit" id="submit" name="submit" class="btn btn-success">Ajouter un theme</button>
+
 
 
 
     {{ form_end(view) }}
+
+    <script type="text/javascript">
+
+    </script>
 {% endblock %}
