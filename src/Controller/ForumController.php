@@ -51,6 +51,11 @@ class ForumController extends AbstractController
      */
     public function welcome(ThemeRepository $themeRepository, Request $request){
         $themes = $themeRepository->pagination((int)$request->query->get("page",1),5);
+
+
+
+
+
         return $this->render('forum/welcome.html.twig',['themes'=>$themes,
             'nbOfthemes'=>$themeRepository->countTheme()]);
     }
