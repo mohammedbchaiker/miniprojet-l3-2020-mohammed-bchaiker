@@ -111,22 +111,13 @@ class ForumController extends AbstractController
         $view=$form->createView();
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()){
-            $captcha=$_POST["g-recaptcha-response"];
-            $secretkey="6LeugSUaAAAAAP4qTVHWDSyN32s51zmczs7gHX2I";
-            $url="https://www.google.com/recaptcha/api/siteverify?secret=".urlencode($secretkey)."&response=".urlencode($captcha)." ";
-            $response=file_get_contents($url);
-            $responsekey=  json_decode($response,TRUE);
-            if ($responsekey['success'] && $form->isValid()){
+            if ( $form->isSubmitted()&& $form->isValid()){
                 $theme->setCreatedAt(new \DateTime());
                 $manager->persist($theme);
                 $manager->flush();
                 return $this->redirectToRoute('theme_discussion',['id'=>$theme->getId()]);
             }
 
-
-
-        }
         return $this->render('forum/addTheme.html.twig',['view'=>$view]);
 
 }

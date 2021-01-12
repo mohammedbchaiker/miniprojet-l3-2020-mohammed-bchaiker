@@ -6,11 +6,19 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @UniqueEntity(
+ *     fields={"email"},
+ *     message="I think you're already registered!"
+ * )
  */
-class User
+class User implements UserInterface
 {
     /**
      * @ORM\Id
@@ -21,8 +29,10 @@ class User
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
+
      */
-    private $email;
+    public $email;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -63,6 +73,16 @@ class User
      * @ORM\OneToMany(targetEntity=Discussion::class, mappedBy="user")
      */
     private $discussions;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $vkey;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $verified;
 
     public function __construct()
     {
@@ -199,4 +219,45 @@ class User
 
         return $this;
     }
+
+    public function getRoles()
+    {
+        return array('ROLE_USER');
+    }
+
+    public function getSalt()
+    {
+        // TODO: Implement getSalt() method.
+    }
+
+    public function eraseCredentials()
+    {
+        // TODO: Implement eraseCredentials() method.
+    }
+
+    public function getVkey(): ?string
+    {
+        return $this->vkey;
+    }
+
+    public function setVkey(?string $vkey): self
+    {
+        $this->vkey = $vkey;
+
+        return $this;
+    }
+
+    public function getVerified(): ?bool
+    {
+        return $this->verified;
+    }
+
+    public function setVerified(?bool $verified): self
+    {
+        $this->verified = $verified;
+
+        return $this;
+    }
+
+
 }
