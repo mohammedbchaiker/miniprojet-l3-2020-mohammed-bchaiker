@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <ul style="margin-left: 30%"class="pagination pagination-lg">
+    {% for i in 1..((nbOfthemes/5)|round(0,'ceil')) %}
+        <li  class="page-item"><a class="page-link" href="{{ path('welcome',{page:i})}}">{{ i }}</a></li>
+    {% endfor %}
+    </ul>
+    {% for theme in themes %}
+        <div class="card">
+            <h6>{{ theme.title }}</h6>
+            <span>Ecrit le {{ theme.createdAt | date}}</span>
+            <div class="container p-3 my-3 bg-dark text-white card-body"><span class="">Description :</span><br>
+                <p>{{ theme.content | raw}}</p>
+            </div>
+            <a href="{{ path('theme_discussion',{'id':theme.id}) }}" class="btn btn-primary">Voir les discussions de ce theme</a>
+        </div>
+    {% endfor %}
+    <ul style="margin-left: 30%"class="pagination pagination-lg">
+        {% for i in 1..((nbOfthemes/5)|round(0,'ceil')) %}
+        <li  class="page-item"><a class="page-link" href="{{ path('welcome',{page:i})}}">{{ i }}</a></li>
+    {% endfor %}
+    </ul>
+{% endblock %}

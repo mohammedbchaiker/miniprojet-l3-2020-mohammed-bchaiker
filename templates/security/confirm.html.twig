@@ -1,0 +1,11 @@
+{% extends 'base.html.twig'%}
+{% form_theme view 'bootstrap_4_layout.html.twig' %}
+{% block body %}
+
+<form action="{{ path('confirm') }}">
+
+    <label for="vkey">Last name:</label><br>
+    <input type="text" id="vkey" name="vkey" value=""><br><br>
+    <input type="submit" value="Submit">
+    </form>
+{% endblock %}

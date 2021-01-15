@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Bienvenue dans le theme {{ theme.title }}</h1>
+    <div>
+        <form class="form-inline my-2 my-lg-0">
+            <i id="ajouter"  style="color:black"></i>
+            <div style="display:none" class="input-group date" id="ajouter_discussion" data-target-input="nearest">
+                toto
+            </div>
+        </form>
+    </div>
+    <span>Ce theme contient {{ val }} discussions</span>
+        {% for discussion in theme.discussions %}
+        <h6>{{ discussion.title}}</h6>
+        <span>Ecrit le {{ discussion.createdAt | date}}</span>
+        <div class="container p-3 my-3 bg-dark text-white">{{ discussion.content | raw}}</div><a href="{{ path('show_forum',{'id':discussion.id}) }}" class="btn btn-primary">lire la suite</a>
+    {% endfor %}
+    <script >
+        $('#ajouter').click(function() {
+            $("#ajouter_discussion").toggle("slow");
+        });
+    </script>
+{% endblock %}

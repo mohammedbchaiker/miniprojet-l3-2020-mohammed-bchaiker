@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% for discussion in discussions %}
+        <h6>{{ discussion.title }}</h6>
+        <span>Ecrit le {{  discussion.createdAt | date}}</span>
+        <div class="container p-3 my-3 bg-dark text-white">{{ discussion.content | raw}} <a href="{{ path('show_forum',{'id':discussion.id}) }}" class="btn btn-primary">lire la suite</a></div>
+    {% endfor %}
+{% endblock %}

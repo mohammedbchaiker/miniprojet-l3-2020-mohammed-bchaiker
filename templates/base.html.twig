@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Bienvenue !{% endblock %}</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    {% block stylesheets %}
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    {% endblock %}
+</head>
+<body>
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <a class="navbar-brand" href="{{ path('welcome') }}">Forum Symfony</a>
+
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('create_discussion') }}">Creer une discussion</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('create_theme') }}">Creer un theme</a>
+        </li>
+
+    </ul>
+    <ul class="nav navbar-nav flex-row justify-content-between ml-auto">
+        <li class="nav-item order-2 order-md-1"><a href="#" class="nav-link" title="settings"><i class="fa fa-cog fa-fw fa-lg"></i></a></li>
+        {% if  app.user %}
+        <li>
+
+            <a href="{{ path('logout') }}" class="nav-link btn btn-outline-danger">Se deconnecter</a>
+        </li>
+        {% else %}
+        <li class="dropdown order-1">
+            <a href="{{ path('registartion')}}"type="button" class="btn btn-outline-success">S'enregistrer</a>
+            <button type="button" id="dropdownMenu1" data-toggle="dropdown" class="btn btn-outline-secondary dropdown-toggle">Connexion <span class="caret"></span></button>
+            <ul class="dropdown-menu dropdown-menu-right mt-2">
+                <li class="px-3 py-2">
+                    <form class="form" role="form" action="{{ path('login') }}" method="POST">
+                        <div class="form-group">
+                            <input id="emailInput" placeholder="Email" class="form-control form-control-sm" name="_username" type="text" required="true">
+                        </div>
+                        <div class="form-group">
+                            <input id="passwordInput" placeholder="Mot de passe" class="form-control form-control-sm" type="password" name="_password"required="true">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block">Se connecter</button>
+                        </div>
+
+                    </form>
+
+                </li>
+
+
+            </ul>
+        </li>
+        {% endif %}
+    </ul>
+</nav>
+<div class="container">
+    {% block body %}{% endblock %}
+
+</div>
+
+{% block javascripts %}
+    <script>
+        $(document).ready(function(){
+            console.log("Script working properly");
+        });
+    </script>
+{% endblock %}
+</body>
+</html>
