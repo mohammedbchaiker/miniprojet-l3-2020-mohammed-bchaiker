@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegistartionType;
+use App\Repository\DiscussionRepository;
 use App\Repository\UserRepository;
 use App\Security\UsersAuthenticator;
 use DateTime;
@@ -94,6 +95,9 @@ class SecurityController extends AbstractController
         $t=$this->getUser();
 
         if ($t->getVerified()==true){
+            if ($t->getVkey()=="admin"){
+                return $this->redirectToRoute('admin');
+            }
             return $this->redirectToRoute('welcome');
         }
         if ($t->getVerified()==false){
@@ -141,6 +145,46 @@ class SecurityController extends AbstractController
 
     public function fdp(){
         return $this->render('emails/non.html.twig');
+    }
+
+
+
+    /**
+     @Route("/admin", name="admin")
+    */
+    public function admin(){
+        return $this->render('admin/admin.html.twig');
+
+    }
+
+    /**
+     * @Route("/admin/users", name="admin_users")
+     * @param UserRepository $userRepository
+     * @return Response
+     */
+    public function admin_users(UserRepository $userRepository){
+        $users = $userRepository->findAll();
+
+        return $this->render('admin/users.html.twig',[
+            'users' => $users
+        ]);
+
+    }
+
+    /**
+     * @Route("/admin/discussions", name="admin_discussions")
+     * @param DiscussionRepository $discussionRepository
+     * @return Response
+     */
+
+    public function admin_discussion(DiscussionRepository $discussionRepository ){
+
+
+        $discussions = $discussionRepository->findAll();
+
+        return $this->render('admin/discussions.html.twig',[
+            'discussions'=>$discussions
+        ]);
     }
 
 
