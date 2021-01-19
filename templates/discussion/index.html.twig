@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Paneau ADMIN{% endblock %}
+
+{% block body %}
+    <h1>Paneau ADMIN</h1>
+
+    <h3>Ajouter un Theme</h3>
+
+    <a class="btn btn-primary" href="{{ path('create_theme')}}">Ajouter un theme</a>
+
+    <h3>Liste de discussion</h3>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>CreatedAt</th>
+                <th>Content</th>
+                <th>Title</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for discussion in discussions %}
+            <tr>
+                <td>{{ discussion.id }}</td>
+                <td>{{ discussion.createdAt ? discussion.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ discussion.content }}</td>
+                <td>{{ discussion.title }}</td>
+                <td>
+                    <a class="btn btn-primary" href="{{ path('discussion_show', {'id': discussion.id}) }}">Montrer</a>
+                    <a class="btn btn-primary" href="{{ path('discussion_edit', {'id': discussion.id}) }}">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Rien n'est trouvé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="btn btn-primary" href="{{ path('discussion_new') }}">Ajouter une discussion</a>
+{% endblock %}

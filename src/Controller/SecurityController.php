@@ -101,7 +101,7 @@ class SecurityController extends AbstractController
             return $this->redirectToRoute('welcome');
         }
         if ($t->getVerified()==false){
-            return $this->redirectToRoute('fdp');
+            return $this->redirectToRoute('font');
         }
     }
 
@@ -133,17 +133,15 @@ class SecurityController extends AbstractController
 
         // On génère un message
         $this->addFlash('message', 'Utilisateur activé avec succès');
-
-        // On retourne à l'accueil
         return $this->redirectToRoute('welcome');
     }
 
 
     /**
-    @Route("/tototototot/", name="fdp")
+    @Route("/tototototot/", name="font")
      */
 
-    public function fdp(){
+    public function font(){
         return $this->render('emails/non.html.twig');
     }
 
@@ -153,51 +151,10 @@ class SecurityController extends AbstractController
      @Route("/admin", name="admin")
     */
     public function admin(){
-        return $this->render('admin/admin.html.twig');
+        
+        return $this->render('discussion/index.html.twig');
 
     }
-
-    /**
-     * @Route("/admin/users", name="admin_users")
-     * @param UserRepository $userRepository
-     * @return Response
-     */
-    public function admin_users(UserRepository $userRepository){
-        $users = $userRepository->findAll();
-
-        return $this->render('admin/users.html.twig',[
-            'users' => $users
-        ]);
-
-    }
-
-    /**
-     * @Route("/admin/discussions", name="admin_discussions")
-     * @param DiscussionRepository $discussionRepository
-     * @return Response
-     */
-
-    public function admin_discussion(DiscussionRepository $discussionRepository ){
-
-
-        $discussions = $discussionRepository->findAll();
-
-        return $this->render('admin/discussions.html.twig',[
-            'discussions'=>$discussions
-        ]);
-    }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
