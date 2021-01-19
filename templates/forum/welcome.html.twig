@@ -6,6 +6,12 @@
         <li  class="page-item"><a class="page-link" href="{{ path('welcome',{page:i})}}">{{ i }}</a></li>
     {% endfor %}
     </ul>
+    {% if var %}
+    <br>
+    <a class="btn btn-danger" href="{{ path('admin')}}">Paneau ADMIN</a>
+    <br>
+        <br>
+    {% endif %}
     {% for theme in themes %}
         <div class="card">
             <h6>{{ theme.title }}</h6>

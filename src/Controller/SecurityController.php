@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\RegistartionType;
 use App\Repository\DiscussionRepository;
+use App\Repository\ThemeRepository;
 use App\Repository\UserRepository;
 use App\Security\UsersAuthenticator;
 use DateTime;
@@ -96,7 +97,7 @@ class SecurityController extends AbstractController
 
         if ($t->getVerified()==true){
             if ($t->getVkey()=="admin"){
-                return $this->redirectToRoute('admin');
+                return $this->redirectToRoute('welcome');
             }
             return $this->redirectToRoute('welcome');
         }
@@ -155,6 +156,33 @@ class SecurityController extends AbstractController
         return $this->render('discussion/index.html.twig');
 
     }
+
+
+
+        /**
+         * @Route ("/", name="welcome")
+         * @param ThemeRepository $themeRepository
+         * @param Request $request
+         * @return Response
+         */
+        public function welcome(ThemeRepository $themeRepository, Request $request){
+                 $var=false;
+            $themes = $themeRepository->pagination((int)$request->query->get("page",1),5);
+             $u=$this->getUser();
+             if ($u != null){
+                 if ($u->getVkey()=="admin"){
+                         $var=true;     }
+                 }
+
+
+
+
+
+
+            return $this->render('forum/welcome.html.twig',['themes'=>$themes,'var'=>$var,
+                'nbOfthemes'=>$themeRepository->countTheme()]);
+        }
+
 
 
 
